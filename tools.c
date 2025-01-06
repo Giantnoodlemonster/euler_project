@@ -22,6 +22,24 @@ void get_n_primes(int* primes, int n_primes){
 };
 
 /*
+ * Generate primes up to 'max_val', returns number of primes found 'l_primes'
+ */
+int get_primes_upto(int* primes, int max_val){
+    primes[0] = 2;
+    primes[1] = 3;
+    int l_primes = 2;
+
+    for(int test_val = 5; test_val <= max_val; test_val += 2){
+        if(is_prime(primes, l_primes, test_val)){
+            primes[l_primes] = test_val;
+            l_primes++;
+        }
+    }
+
+    return l_primes;
+};
+
+/*
  *  Tests 'test_val' for divisibility by values in 'primes'.
  *  Assumes 'primes' is an array of primes up to 'test_val'/2 or more,
  *  'l_primes' is length of 'primes'.

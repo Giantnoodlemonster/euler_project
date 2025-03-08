@@ -52,3 +52,23 @@ bool is_prime(int* primes, int l_primes, int test_val){
 
     return true;
 };
+
+/*
+ * Convert char to corresponding ASCII integer
+ */
+int c2i(char c){
+    return c - 48;
+};
+
+/*
+ * Return number of divisors of x
+ */
+int count_divisors(int x){
+    int i,save = 2;
+    for(i = 2; i <= x / 2; i++){
+        if(!(x % i))
+            save += 1;
+    }
+
+    return save;
+}

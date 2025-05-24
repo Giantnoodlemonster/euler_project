@@ -39,6 +39,21 @@ int get_primes_upto(int* primes, int max_val){
     return l_primes;
 };
 
+/* 
+ * Adds prime values up to 'max_val' to array 'primes'
+ * Returns new 'primes' length 'l_primes'
+ */
+int add_primes_upto(int* primes, int l_primes, int max_val){
+    for(int test_val = primes[l_primes-1] + 2; test_val <= max_val; test_val += 2){
+        if(is_prime(primes, l_primes, test_val)){
+            primes[l_primes] = test_val;
+            l_primes++;
+        }
+    }
+
+    return l_primes;
+};
+
 /*
  *  Tests 'test_val' for divisibility by values in 'primes'.
  *  Assumes 'primes' is an array of primes up to 'test_val'/2 or more,
@@ -68,6 +83,28 @@ int count_divisors(int x){
     for(i = 2; i <= x / 2; i++){
         if(!(x % i))
             save += 1;
+    }
+
+    return save;
+}
+
+/*
+ * Return number of divisors of x
+ * Uses prime factorization instead of direct factorization
+ * Assumes that 'primes' and 'l_primes' are such that all primes up to and including 'x/2' are present
+ */
+int count_divisors_primef(int x, int* primes, int l_primes){
+    int save = 1;
+    int e_count = 0;
+
+    // For each prime, save *= (exponent + 1), end when x is completely factorized
+    for(int i = 0; (i < l_primes) & (x > 1); i++){
+        while(!(x % primes[i])){
+            e_count += 1;
+            x /= primes[i];
+        }
+        save *= e_count + 1;
+        e_count = 0;
     }
 
     return save;

@@ -16,17 +16,37 @@
 #include <stdio.h>
 #include "tools.h"
 
+// int main(void){
+//     int i = 0;
+//     int sum = 0;
+//     int save = 0;
+//     while(save < 500){
+//         i += 1;
+//         sum += i;
+//         save = count_divisors(sum);
+//     }
+// 
+//     printf("%i\n", sum);
+//     return 0;
+// };
+
 int main(void){
     int i = 0;
     int sum = 0;
     int save = 0;
-    while(save < 500){
+
+    int primes[1000000] = {0};
+    int l_primes = get_primes_upto(primes, 10000000);
+
+    while(save < 100){
         i += 1;
         sum += i;
-        save = count_divisors(sum);
-        //if(!(i % 100))
-        //    printf("%i %i %i\n", i, sum, save);
-    }
+
+        if(sum > primes[l_primes - 1])
+            l_primes = add_primes_upto(primes, l_primes, sum);
+
+        save = count_divisors_primef(sum, primes, l_primes);
+    };
 
     printf("%i\n", sum);
     return 0;

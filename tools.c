@@ -89,6 +89,27 @@ int count_divisors(int x){
 }
 
 /*
+ * Returns number of divisors of x, puts divisors in *divisors
+ * If number of counted divisors exceed limit, return -1
+ */
+int get_divisors(int x, int *divisors, int limit){
+    int i = 1;
+    divisors[0] = 1;
+    int test_val = 2;
+
+    if(x < 0)
+        x = -x;
+
+    for(int test_val = 2; test_val <= x / 2; test_val++){
+        if(!(x % test_val)){
+            divisors[i] = test_val;
+            i++;
+        }
+    }
+    return i;
+};
+
+/*
  * Return number of divisors of x
  * Uses prime factorization instead of direct factorization
  * Assumes that 'primes' and 'l_primes' are such that all primes up to and including 'x/2' are present
@@ -109,3 +130,26 @@ int count_divisors_primef(int x, int* primes, int l_primes){
 
     return save;
 }
+
+/*
+ * Returns sum of values between x and y.
+ * Assumes x and y are non-zero.
+ */
+int tri_num(int x, int y){
+    if((x == 0) && (y == 0))
+        return 0;
+
+    int v1,v2;
+    if(y > x){
+        v2 = y;
+        v1 = x;
+    }
+    else{
+        v2 = x;
+        v1 = y;
+    }
+    if(v1 == 0)
+        return (v2 * (v2 + 1) / 2);
+    else
+        return (v2 * (v2 + 1) / 2) - tri_num(0, v1 - 1);
+};
